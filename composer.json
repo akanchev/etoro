@@ -1,0 +1,9 @@
+{
+    "name": "root/etoro",
+    "type": "project",
+    "require": {
+        "doctrine/dbal": "^3.0",
+        "guzzlehttp/guzzle": "^7.2",
+        "vlucas/phpdotenv": "^5.2"
+    }
+}

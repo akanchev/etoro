@@ -1,0 +1,20 @@
+#instrument-table-container {
+    padding: 10px;
+}
+td.details-control {
+    background: url('../assets/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../assets/details_close.png') no-repeat center center;
+}
+
+thead input {
+    width: 100%;
+}
+
+a.toggle-vis {
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
