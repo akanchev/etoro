@@ -1,0 +1,42 @@
+-- MySQL dump 10.13  Distrib 5.7.32, for Linux (x86_64)
+--
+-- Host: 127.0.0.1    Database: etoro
+-- ------------------------------------------------------
+-- Server version	5.7.32-0ubuntu0.18.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `instrument`
+--
+
+DROP TABLE IF EXISTS `instrument`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `instrument` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `instrument_id` int(10) unsigned NOT NULL,
+  `instrument_type_id` smallint(5) unsigned NOT NULL,
+  `instrument_type_sub_category_id` smallint(5) unsigned NOT NULL,
+  `instrument_display_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `stocks_industry_id` smallint(5) unsigned NOT NULL,
+  `exchange_id` smallint(5) unsigned NOT NULL,
+  `symbol_full` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `info` json DEFAULT NULL,
+  `metadata` json DEFAULT NULL,
+  `has_info` tinyint(4) NOT NULL DEFAULT '0',
+  `time_created` int(10) unsigned NOT NULL DEFAULT '0',
+  `time_updated` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `instrument_id` (`instrument_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5454 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
