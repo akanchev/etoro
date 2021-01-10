@@ -29,7 +29,8 @@ foreach ($instruments as $key => $instrument) {
     $logo = $metadata['Images'][4]['Uri'] ?? $metadata['Images'][3]['Uri'] ?? $metadata['Images'][2]['Uri'] ?? null;
 
     $rows[] = [
-        'id'                                => $instrument['instrument_id'],
+        'id'                                => $instrument['id'],
+        'instrument_id'                     => $instrument['instrument_id'],
         'logo'                              => '<a href="https://www.etoro.com/markets/' . $instrument['symbol_full'] .'" target="_blank">' . ($logo ? '<img src="' . $logo . '" style="width:80px; height:80px;">' : 'Link') . '</a>',
         'symbol_full'                       => $instrument['symbol_full'],
         'instrument_id'                     => $instrument['instrument_id'],
@@ -46,6 +47,7 @@ foreach ($instruments as $key => $instrument) {
         'next_dividend_ex_date'             => isset($info['dividendExDate-TTM']) ? date("Y-m-d", strtotime($info['dividendExDate-TTM'])) : '',
         'next_earning_date'                 => isset($info['nextEarningDate']) ? date("Y-m-d", strtotime($info['nextEarningDate'])) : '',
         'company_founded_date'              => $info['companyFoundedDate-TTM'] ?? '',
+        'internal'                          => $metadata['IsInternalInstrument'] ?? false,
 
 
     ];
@@ -83,6 +85,7 @@ foreach ($instruments as $key => $instrument) {
                 var title = $(this).text();
 
                 switch (title) {
+                    case '#':
                     case 'Id':
                     case 'Logo':
                         $(this).html( '' );
@@ -110,6 +113,7 @@ foreach ($instruments as $key => $instrument) {
                 "data": dataset,
                 "columns": [
                     { "data": "id" },
+                    { "data": "instrument_id" },
                     { "data": "logo" },
                     { "data": "symbol_full" },
                     { "data": "instrument_display_name" },
@@ -120,12 +124,14 @@ foreach ($instruments as $key => $instrument) {
                     { "data": "next_dividend_ex_date" },
                     { "data": "company_founded_date" },
                     { "data": "short_bio" },
-                    { "data": "long_bio" }
+                    { "data": "long_bio" },
+                    { "data": "internal" },
                 ],
                 "columnDefs": [
                     { "width": "50px", "targets": 0 },
                     { "width": "50px", "targets": 1 },
                     { "width": "50px", "targets": 2 },
+                    { "width": "50px", "targets": 3 },
                 ],
                 "order": [[1, 'asc']]
             } );
@@ -146,23 +152,25 @@ foreach ($instruments as $key => $instrument) {
     <div id="instrument-table-container">
         <div class="btn-group">
             Show / Hide Columns :
-            <a class="toggle-vis" data-column="0">Name</a> |
-            <a class="toggle-vis" data-column="1">Logo</a> |
-            <a class="toggle-vis" data-column="2">Code</a> |
-            <a class="toggle-vis" data-column="3">Name</a> |
-            <a class="toggle-vis" data-column="4">Sector</a> |
-            <a class="toggle-vis" data-column="5">Industry</a> |
-            <a class="toggle-vis" data-column="6">Exchange</a> |
-            <a class="toggle-vis" data-column="7">Next Earnings</a> |
-            <a class="toggle-vis" data-column="8">Next Dividend</a> |
-            <a class="toggle-vis" data-column="9">Company Founded</a> |
-            <a class="toggle-vis" data-column="10">Short Bio</a>
-            <a class="toggle-vis" data-column="11">Long Bio</a>
+            <a class="toggle-vis" data-column="1">Name</a> |
+            <a class="toggle-vis" data-column="2">Logo</a> |
+            <a class="toggle-vis" data-column="3">Code</a> |
+            <a class="toggle-vis" data-column="4">Name</a> |
+            <a class="toggle-vis" data-column="5">Sector</a> |
+            <a class="toggle-vis" data-column="6">Industry</a> |
+            <a class="toggle-vis" data-column="7">Exchange</a> |
+            <a class="toggle-vis" data-column="8">Next Earnings</a> |
+            <a class="toggle-vis" data-column="9">Next Dividend</a> |
+            <a class="toggle-vis" data-column="10">Company Founded</a> |
+            <a class="toggle-vis" data-column="11">Short Bio</a>
+            <a class="toggle-vis" data-column="12">Long Bio</a>
+            <a class="toggle-vis" data-column="13">Is Internal</a>
         </div>
 
         <table id="instrument-table" class="table table-striped table-bordered" style="width:100%">
             <thead>
             <tr>
+                <th>#</th>
                 <th>Id</th>
                 <th>Logo</th>
                 <th>Code</th>
@@ -175,10 +183,12 @@ foreach ($instruments as $key => $instrument) {
                 <th>Company Founded</th>
                 <th>Short Bio</th>
                 <th>Long Bio</th>
+                <th>Is Internal</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
+                <th>#</th>
                 <th>Id</th>
                 <th>Logo</th>
                 <th>Code</th>
@@ -191,6 +201,7 @@ foreach ($instruments as $key => $instrument) {
                 <th>Company Founded</th>
                 <th>Short Bio</th>
                 <th>Long Bio</th>
+                <th>Is Internal</th>
             </tr>
             </tfoot>
         </table>
